@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @AllArgsConstructor
 public class MenuController {
 
-    @GetMapping("/home")
-    public String info() {
-        return "index";
-    }
+//    @GetMapping("/home")
+//    public String info() {
+//        return "index";
+//    }
 }
 
