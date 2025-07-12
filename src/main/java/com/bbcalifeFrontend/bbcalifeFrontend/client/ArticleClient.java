@@ -41,5 +41,8 @@ public interface ArticleClient {
             @RequestParam("categoryId") Long categoryId,
             @RequestParam("visibility") String visibility
     );
+
+    @GetMapping("/newest-not-deleted")
+    List<ArticleResponse> getNewestNotDeleted(@RequestParam("limit") int limit);
 }
 

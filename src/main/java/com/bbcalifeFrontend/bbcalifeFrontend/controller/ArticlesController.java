@@ -12,13 +12,12 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class ArticlesController {
-
     private final ArticleClient articleClient;
 
-    @GetMapping("/home")
+    @GetMapping("/blog")
     public String getArticles(Model model) {
         List<ArticleResponse> articles = articleClient.getAllDeletedAtNull();
         model.addAttribute("articles", articles);
-        return "index";
+        return "blog";
     }
 }
