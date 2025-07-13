@@ -8,7 +8,7 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <th:block th:insert="~{fragments/links}"></th:block>
+    <th:block th:insert="~{/fragments/links}"></th:block>
 </head>
 
 <body>
@@ -50,7 +50,6 @@
 <!-- Page Header End -->
 
 
-<!-- Events Start -->
 <div class="container-fluid events py-5 bg-light">
     <div class="container py-5">
         <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 700px;">
@@ -58,6 +57,51 @@
                 Най-новите статии</h4>
             <h1 class="mb-5 display-3">Блог</h1>
         </div>
+
+        <form class="mb-5 d-flex gap-2 flex-wrap justify-content-center align-items-center" method="get" th:action="@{/blog}">
+
+            <input type="text" name="search" placeholder="Търси по заглавие..."
+                   class="form-control" style="max-width: 300px;"
+                   th:value="${search}"/>
+
+            <button class="btn btn-outline-primary" name="category" th:classappend="${category} == null ? 'active' : ''"
+                    type="submit"
+                    value="">
+                Всички
+            </button>
+
+            <button class="btn btn-outline-primary" name="category" th:classappend="${category} == 'articles' ? 'active' : ''"
+                    type="submit"
+                    value="articles">
+                Статии
+            </button>
+
+            <button class="btn btn-outline-primary" name="category" th:classappend="${category} == 'shops' ? 'active' : ''"
+                    type="submit"
+                    value="shops">
+                Магазини
+            </button>
+
+            <button class="btn btn-outline-primary" name="category" th:classappend="${category} == 'psychologists_and_support' ? 'active' : ''"
+                    type="submit"
+                    value="psychologists_and_support">
+                Психолози и Подкрепа
+            </button>
+
+            <button class="btn btn-outline-primary" name="category" th:classappend="${category} == 'useful_relationships' ? 'active' : ''"
+                    type="submit"
+                    value="useful_relationships">
+                Полезни Връзки
+            </button>
+
+            <button class="btn btn-outline-primary" name="category" th:classappend="${category} == 'recipes' ? 'active' : ''"
+                    type="submit"
+                    value="recipes">
+                Рецепти
+            </button>
+        </form>
+
+
         <div class="row g-5 justify-content-center">
             <div class="col-md-6 col-lg-6 col-xl-4 wow fadeIn d-flex" data-wow-delay="0.1s"
                  th:each="article : ${articles}">
@@ -82,16 +126,18 @@
                         </div>
                     </div>
                     <div class="events-text p-4 border border-primary bg-white border-top-0 rounded-bottom mt-auto">
-                        <a class="h4" href="#" th:text="${article.title}">Article Title</a>
-                        <!-- <p class="mb-0 mt-3" th:text="${article.description}">Short description...</p> -->
+                        <a class="h4" th:href="@{'/articles/' + ${article.id}}" th:text="${article.title}">Article
+                            Title</a>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="text-center mt-5" th:if="${#lists.isEmpty(articles)}">
+            <p class="text-muted">Няма намерени статии с тези филтри.</p>
+        </div>
     </div>
 </div>
-
-<!-- Events End -->
 
 
 <th:block th:insert="~{fragments/footer}"></th:block>

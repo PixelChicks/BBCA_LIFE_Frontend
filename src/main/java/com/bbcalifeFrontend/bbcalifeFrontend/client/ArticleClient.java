@@ -44,5 +44,11 @@ public interface ArticleClient {
 
     @GetMapping("/newest-not-deleted")
     List<ArticleResponse> getNewestNotDeleted(@RequestParam("limit") int limit);
+
+    @GetMapping("/filterSearch")
+    List<ArticleResponse> searchArticlesFilter(
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) String category
+    );
 }
 

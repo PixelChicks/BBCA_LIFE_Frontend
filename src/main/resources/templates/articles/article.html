@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+
+<head>
+    <meta charset="utf-8">
+    <title>Блог</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <th:block th:insert="~{fragments/links}"></th:block>
+</head>
+
+<body>
+<th:block th:insert="~{fragments/navbar}"></th:block>
+<!-- Modal Search Start -->
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="searchModal" tabindex="-1">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center">
+                <div class="input-group w-75 mx-auto d-flex">
+                    <input aria-describedby="search-icon-1" class="form-control p-3" placeholder="keywords"
+                           type="search">
+                    <span class="input-group-text p-3" id="search-icon-1"><i class="fa fa-search"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Search End -->
+
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container text-center py-5">
+        <h1 class="display-2 text-white mb-4">Нашият блог</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center mb-0">
+                <li class="breadcrumb-item"><a href="/home">Начало</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li aria-current="page" class="breadcrumb-item text-white">Блог</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+            <div class="text-center mb-5">
+                <h1 class="display-6 border-bottom border-primary d-inline-block p-2 title-border-radius"
+                    th:text="${article.title}">Article Title</h1>
+                <div class="text-muted mt-2 text-center fs-5">
+                    <small>
+                        <i class="fas fa-calendar me-2 text-primary fs-4"></i>
+                        <span th:text="${#temporals.format(article.createdAt, 'dd-MM-yyyy HH:mm')}">01-01-2025</span>
+                        <span class="mx-2">|</span>
+                        Категория: <span class="text-primary fw-semibold"
+                                         th:text="${article.categoryName}">Health</span>
+                    </small>
+                </div>
+
+            </div>
+
+            <div class="text-center mb-5">
+                <div th:with="imgPath=${article.thumbnailPicture != null ? article.thumbnailPicture : '166653482120221023_052021.png'}">
+                    <div class="overflow-hidden rounded border border-3 border-primary shadow"
+                         style="width: 100%; max-width: 380px; height: 300px; margin: auto;">
+                        <img alt="Article Image"
+                             class="img-fluid h-100 w-100"
+                             style="object-fit: cover;"
+                             th:src="@{'/uploads/articles/' + ${imgPath}}">
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="bg-light p-4 rounded border border-primary">
+                <p class="lead" th:utext="${article.description}">Article description here...</p>
+            </div>
+
+            <div class="mt-4 d-flex justify-content-between text-muted small">
+                <div class="d-flex align-items-center" th:if="${article.calories != null}">
+                    <i class="fas fa-fire text-primary fs-4 me-2"></i>
+                    <span class="fs-5" th:text="${article.calories}">0</span> calories
+                </div>
+
+                <div class="d-flex align-items-center" th:if="${article.hours != null or article.minutes != null}">
+                    <i class="fas fa-clock text-primary fs-4 me-2"></i>
+                    <span class="fs-5" th:if="${article.hours != null}" th:text="${article.hours}">0</span>h
+                    <span class="fs-5 ms-2" th:if="${article.minutes != null}" th:text="${article.minutes}">0</span>m
+                </div>
+
+                <div class="d-flex align-items-center" th:if="${article.subcategory != null}">
+                    <i class="fas fa-tags text-primary fs-4 me-2"></i>
+                    <span class="fs-5" th:text="${article.subcategory}">Subcategory</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<th:block th:insert="~{fragments/footer}"></th:block>
+<th:block th:insert="~{fragments/copyright}"></th:block>
+<th:block th:insert="~{fragments/backToTop}"></th:block>
+<th:block th:insert="~{fragments/jsLibraries}"></th:block>
+<style>
+    html, body {
+        overflow-x: hidden;
+    }
+
+</style>
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+</body>
+
+</html>

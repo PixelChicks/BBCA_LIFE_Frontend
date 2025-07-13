@@ -1,10 +1,19 @@
-
 <!-- Spinner Start -->
-<div class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center"
-     id="spinner">
+<div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center">
     <div class="spinner-grow text-primary" role="status"></div>
 </div>
 <!-- Spinner End -->
+
+<script>
+    // Hide spinner when page fully loaded
+    window.addEventListener('load', () => {
+      const spinner = document.getElementById('spinner');
+      if (spinner) {
+        spinner.classList.remove('show');
+      }
+    });
+</script>
+
 
 
 <!-- Navbar start -->

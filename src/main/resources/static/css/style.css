@@ -1,4 +1,9 @@
-
+body {
+    overflow-x: hidden;
+}
+.container, .row, .col-lg-8 {
+    max-width: 100%;
+}
 /*** Spinner Start ***/
 #spinner {
     opacity: 0;
@@ -679,4 +684,5 @@ h6,
 .footer-item a.text-body:hover {
     color: var(--bs-secondary) !important;
 }
+
 /*** Footer End ***/

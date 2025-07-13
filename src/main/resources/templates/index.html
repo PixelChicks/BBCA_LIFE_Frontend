@@ -346,7 +346,8 @@
                         </div>
                     </div>
                     <div class="events-text p-4 border border-primary bg-white border-top-0 rounded-bottom mt-auto">
-                        <a class="h4" href="#" th:text="${article.title}">Article Title</a>
+                        <a class="h4" th:href="@{'/articles/' + ${article.id}}" th:text="${article.title}">Article Title</a>
+
                         <!-- <p class="mb-0 mt-3" th:text="${article.description}">Short description...</p> -->
                     </div>
                 </div>
