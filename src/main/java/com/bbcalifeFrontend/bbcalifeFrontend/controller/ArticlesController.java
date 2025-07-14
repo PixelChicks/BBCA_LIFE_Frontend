@@ -95,5 +95,58 @@ public class ArticlesController {
         }
     }
 
+    @GetMapping("/articles/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        ArticleResponse article = articleClient.getById(id);
+        List<ArticleCategory> categories = articleCategoryClient.getAllCategories();
+
+        model.addAttribute("article", article);
+        model.addAttribute("categories", categories);
+
+        return "articles/edit";
+    }
+
+    @PostMapping("/articles/edit/{id}")
+    public String editArticle(
+            @PathVariable Long id,
+            @ModelAttribute ArticleRequest article,
+            @RequestParam("file") MultipartFile file,
+            Model model
+    ) {
+        try {
+            // Fetch existing article to access current thumbnail if needed
+            ArticleResponse existing = articleClient.getById(id);
+
+            if (!file.isEmpty()) {
+                Path uploadDir = Paths.get("uploads/articles");
+                if (!Files.exists(uploadDir)) {
+                    Files.createDirectories(uploadDir);
+                }
+
+                String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+                Path targetPath = uploadDir.resolve(filename);
+
+                try (InputStream inputStream = file.getInputStream()) {
+                    Files.copy(inputStream, targetPath, StandardCopyOption.REPLACE_EXISTING);
+                }
+
+                article.setThumbnailPicture(filename); // ✅ New file
+            } else {
+                article.setThumbnailPicture(existing.getThumbnailPicture()); // ✅ Keep old file
+            }
+
+            articleClient.update(id, article);
+
+            return "redirect:/articles/" + id;
+        } catch (Exception e) {
+            model.addAttribute("error", "Error updating article: " + e.getMessage());
+            model.addAttribute("categories", articleCategoryClient.getAllCategories());
+            model.addAttribute("article", articleClient.getById(id));
+            return "articles/edit";
+        }
+    }
+
+
+
 
 }
