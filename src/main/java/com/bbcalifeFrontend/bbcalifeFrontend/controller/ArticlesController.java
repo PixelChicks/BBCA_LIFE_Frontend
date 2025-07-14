@@ -114,7 +114,6 @@ public class ArticlesController {
             Model model
     ) {
         try {
-            // Fetch existing article to access current thumbnail if needed
             ArticleResponse existing = articleClient.getById(id);
 
             if (!file.isEmpty()) {
@@ -130,9 +129,9 @@ public class ArticlesController {
                     Files.copy(inputStream, targetPath, StandardCopyOption.REPLACE_EXISTING);
                 }
 
-                article.setThumbnailPicture(filename); // ✅ New file
+                article.setThumbnailPicture(filename);
             } else {
-                article.setThumbnailPicture(existing.getThumbnailPicture()); // ✅ Keep old file
+                article.setThumbnailPicture(existing.getThumbnailPicture());
             }
 
             articleClient.update(id, article);
@@ -145,8 +144,4 @@ public class ArticlesController {
             return "articles/edit";
         }
     }
-
-
-
-
 }

@@ -40,7 +40,7 @@
 
             <div class="mb-3">
                 <label class="form-label">Описание</label>
-                <textarea class="form-control" name="description" rows="4" required></textarea>
+                <textarea id="description-editor" class="form-control" name="description" required></textarea>
             </div>
 
             <div class="mb-3">
@@ -96,6 +96,23 @@
 <th:block th:insert="~{fragments/copyright}"></th:block>
 <th:block th:insert="~{fragments/backToTop}"></th:block>
 <th:block th:insert="~{fragments/jsLibraries}"></th:block>
+<th:block th:insert="~{fragments/footer}"></th:block>
+<th:block th:insert="~{fragments/jsLibraries}"></th:block>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/ui/trumbowyg.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/trumbowyg.min.js"></script>
+
+<!-- ✅ Trumbowyg init -->
+<script>
+    $(document).ready(function () {
+        $('#description-editor').trumbowyg();
+    });
+</script>
+
+<script src="js/main.js"></script>
+</body>
+
 <script src="js/main.js"></script>
 </body>
 
